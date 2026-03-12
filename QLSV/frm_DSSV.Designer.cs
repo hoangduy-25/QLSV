@@ -90,7 +90,7 @@
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(81, 33);
             this.btn_Refresh.TabIndex = 3;
-            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.Text = "Làm mới";
             this.btn_Refresh.UseVisualStyleBackColor = false;
             this.btn_Refresh.Click += new System.EventHandler(this.Main_Load);
             // 
