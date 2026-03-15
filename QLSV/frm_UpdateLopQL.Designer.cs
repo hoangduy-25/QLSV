@@ -207,6 +207,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "frm_UpdateLopQL";
             this.Text = "frm_UpdateLopQL";
+            this.Load += new System.EventHandler(this.frm_UpdateLopQL_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

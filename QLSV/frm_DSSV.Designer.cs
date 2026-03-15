@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel3 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvSinhVien = new System.Windows.Forms.DataGridView();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_Delete = new System.Windows.Forms.Button();
             this.btn_tien = new System.Windows.Forms.Button();
@@ -46,13 +46,13 @@
             this.btn_DangXuat = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSinhVien)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.dataGridView1);
+            this.panel3.Controls.Add(this.dgvSinhVien);
             this.panel3.Controls.Add(this.btn_Refresh);
             this.panel3.Controls.Add(this.btn_Delete);
             this.panel3.Controls.Add(this.btn_tien);
@@ -72,15 +72,16 @@
             this.panel3.TabIndex = 2;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
             // 
-            // dataGridView1
+            // dgvSinhVien
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 55);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(748, 276);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvSinhVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSinhVien.Location = new System.Drawing.Point(19, 55);
+            this.dgvSinhVien.Name = "dgvSinhVien";
+            this.dgvSinhVien.RowHeadersWidth = 51;
+            this.dgvSinhVien.RowTemplate.Height = 24;
+            this.dgvSinhVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSinhVien.Size = new System.Drawing.Size(748, 276);
+            this.dgvSinhVien.TabIndex = 4;
             // 
             // btn_Refresh
             // 
@@ -92,7 +93,7 @@
             this.btn_Refresh.TabIndex = 3;
             this.btn_Refresh.Text = "Làm mới";
             this.btn_Refresh.UseVisualStyleBackColor = false;
-            this.btn_Refresh.Click += new System.EventHandler(this.Main_Load);
+            this.btn_Refresh.Click += new System.EventHandler(this.frm_SinhVien_Load);
             // 
             // btn_Delete
             // 
@@ -104,7 +105,7 @@
             this.btn_Delete.TabIndex = 3;
             this.btn_Delete.Text = "Xóa";
             this.btn_Delete.UseVisualStyleBackColor = false;
-            this.btn_Delete.Click += new System.EventHandler(this.delete_Click);
+            this.btn_Delete.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btn_tien
             // 
@@ -114,7 +115,7 @@
             this.btn_tien.TabIndex = 3;
             this.btn_tien.Text = ">";
             this.btn_tien.UseVisualStyleBackColor = true;
-            this.btn_tien.Click += new System.EventHandler(this.button1_Click);
+            //this.btn_tien.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_lui
             // 
@@ -124,7 +125,7 @@
             this.btn_lui.TabIndex = 3;
             this.btn_lui.Text = "<";
             this.btn_lui.UseVisualStyleBackColor = true;
-            this.btn_lui.Click += new System.EventHandler(this.button1_Click);
+            //this.btn_lui.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_Sua
             // 
@@ -136,7 +137,7 @@
             this.btn_Sua.TabIndex = 3;
             this.btn_Sua.Text = "Sửa";
             this.btn_Sua.UseVisualStyleBackColor = false;
-            this.btn_Sua.Click += new System.EventHandler(this.button1_Click);
+            this.btn_Sua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btn_Add
             // 
@@ -148,7 +149,7 @@
             this.btn_Add.TabIndex = 3;
             this.btn_Add.Text = "Thêm mới";
             this.btn_Add.UseVisualStyleBackColor = false;
-            this.btn_Add.Click += new System.EventHandler(this.button1_Click);
+            this.btn_Add.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btn_search
             // 
@@ -160,7 +161,7 @@
             this.btn_search.TabIndex = 3;
             this.btn_search.Text = "Tìm kiếm";
             this.btn_search.UseVisualStyleBackColor = false;
-            this.btn_search.Click += new System.EventHandler(this.Main_Load);
+            this.btn_search.Click += new System.EventHandler(this.frm_SinhVien_Load);
             // 
             // textBox2
             // 
@@ -236,7 +237,7 @@
             this.label1.Size = new System.Drawing.Size(277, 31);
             this.label1.TabIndex = 1;
             this.label1.Text = "QUẢN LÝ SINH VIÊN";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // frm_DSSV
             // 
@@ -247,10 +248,10 @@
             this.Controls.Add(this.panel1);
             this.Name = "frm_DSSV";
             this.Text = "frm_SinhVien";
-            this.Load += new System.EventHandler(this.Main_Load);
+            this.Load += new System.EventHandler(this.frm_SinhVien_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSinhVien)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -271,7 +272,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_tien;
         private System.Windows.Forms.Button btn_lui;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvSinhVien;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_DangXuat;

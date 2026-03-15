@@ -148,7 +148,7 @@
             this.btn_Luu.TabIndex = 6;
             this.btn_Luu.Text = "Lưu";
             this.btn_Luu.UseVisualStyleBackColor = false;
-            this.btn_Luu.Click += new System.EventHandler(this.add_Click);
+            this.btn_Luu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // btn_Huy
             // 
@@ -172,6 +172,7 @@
             // 
             // cB_gioiTinh
             // 
+            this.cB_gioiTinh.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cB_gioiTinh.FormattingEnabled = true;
             this.cB_gioiTinh.Items.AddRange(new object[] {
             "Nam",
@@ -201,6 +202,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "frm_UpdateSinhVien";
             this.Text = "ThemSinhVien";
+            this.Load += new System.EventHandler(this.UpdateSinhVien_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

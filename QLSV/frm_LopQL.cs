@@ -12,35 +12,108 @@ namespace QLSV
 {
     public partial class frm_LopQL : Form
     {
+        
         public frm_LopQL()
         {
             InitializeComponent();
         }
         private void frm_LopQL_Load(object sender, EventArgs e)
         {
-            DataBaseDataContext db = new DataBaseDataContext();
-            var list = db.tbl_LopQLs.ToList();
-            dGV_LopQL.DataSource = list;
-            dGV_LopQL.Columns["maLop"].HeaderText = "Mã Lớp";
-            dGV_LopQL.Columns["tenLop"].HeaderText = "Tên lớp";
-            dGV_LopQL.Columns["SoHS"].HeaderText = "Số HS";
-            dGV_LopQL.Columns["GiangVien"].HeaderText = "Giảng viên";
+            LoadLopQL();
+            
+        }
+
+        private void LoadLopQL()
+        {
+            try
+            {
+                using (DataBaseDataContext db = new DataBaseDataContext())
+                {
+                    var list = db.tbl_LopQLs.OrderBy(lop => lop.id).ToList();
+                    dgvLopQL.DataSource = list;
+                    FormatGid();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+
+        }
+        private void FormatGid()
+        {
+            if (dgvLopQL.Rows.Count > 0)
+            {
+                dgvLopQL.Columns["maLop"].HeaderText = "Mã Lớp";
+                dgvLopQL.Columns["tenLop"].HeaderText = "Tên lớp";
+                dgvLopQL.Columns["SoHS"].HeaderText = "Số HS";
+                dgvLopQL.Columns["GiangVien"].HeaderText = "Giảng viên";
+            }
         }
         private void btn_ThemLop_Click(object sender, EventArgs e)
         {
             frm_UpdateLopQL UpdateLopQL = new frm_UpdateLopQL();
-            UpdateLopQL.Show();
+            UpdateLopQL.ShowDialog();
+            LoadLopQL();
         }
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
+            this.Hide();
             frm_Login loginForm = new frm_Login();
-            loginForm.Show();
+            loginForm.ShowDialog();
             this.Close();
         }
-        private void label1_Click(object sender, EventArgs e)
+        private void btnSua_Click(object sender, EventArgs e)
         {
+            if (dgvLopQL.CurrentRow != null)
+            {
+                string id = dgvLopQL.CurrentRow.Cells["id"].Value.ToString();
+                frm_UpdateLopQL update = new frm_UpdateLopQL(id);
+                update.ShowDialog();
+                LoadLopQL();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một sinh viên để sửa.");
+            }
 
         }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLopQL.CurrentRow != null)
+            {
+                string id = dgvLopQL.CurrentRow.Cells["id"].Value.ToString();
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa lớp này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (DataBaseDataContext db = new DataBaseDataContext())
+                        {
+                            var lop = db.tbl_LopQLs.FirstOrDefault(x => x.id == id);
+                            if (lop != null)
+                            {
+                                db.tbl_LopQLs.DeleteOnSubmit(lop);
+                                db.SubmitChanges();
+                                LoadLopQL();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa lớp: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một lớp để xóa.");
+            }
+        }
+
+        
     }
 
 }

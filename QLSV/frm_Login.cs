@@ -23,17 +23,17 @@ namespace QLSV
             string password = txt_passwd.Text;
             if (username == "1" && password == "1")
             {
-                MessageBox.Show("Đăng nhập thành công!");
-                frm_DSSV mainForm = new frm_DSSV();
-                mainForm.Show();
                 this.Hide();
+                frm_DSSV mainForm = new frm_DSSV();
+                mainForm.ShowDialog();
+                this.Close();
             }
             else if (username == "2" && password == "2")
             {
-                MessageBox.Show("Đăng nhập thành công!");
-                frm_LopQL mainForm = new frm_LopQL();
-                mainForm.Show();
                 this.Hide();
+                frm_LopQL mainForm = new frm_LopQL();
+                mainForm.ShowDialog();
+                this.Close();
             }
             else
             {

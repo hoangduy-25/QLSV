@@ -30,7 +30,7 @@
         {
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.dGV_LopQL = new System.Windows.Forms.DataGridView();
+            this.dgvLopQL = new System.Windows.Forms.DataGridView();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_Delete = new System.Windows.Forms.Button();
             this.btn_tien = new System.Windows.Forms.Button();
@@ -48,7 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_LopQL)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLopQL)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.dGV_LopQL);
+            this.panel2.Controls.Add(this.dgvLopQL);
             this.panel2.Controls.Add(this.btn_Refresh);
             this.panel2.Controls.Add(this.btn_Delete);
             this.panel2.Controls.Add(this.btn_tien);
@@ -83,15 +83,16 @@
             this.panel2.Size = new System.Drawing.Size(800, 382);
             this.panel2.TabIndex = 3;
             // 
-            // dGV_LopQL
+            // dgvLopQL
             // 
-            this.dGV_LopQL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGV_LopQL.Location = new System.Drawing.Point(19, 55);
-            this.dGV_LopQL.Name = "dGV_LopQL";
-            this.dGV_LopQL.RowHeadersWidth = 51;
-            this.dGV_LopQL.RowTemplate.Height = 24;
-            this.dGV_LopQL.Size = new System.Drawing.Size(748, 276);
-            this.dGV_LopQL.TabIndex = 4;
+            this.dgvLopQL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLopQL.Location = new System.Drawing.Point(19, 55);
+            this.dgvLopQL.Name = "dgvLopQL";
+            this.dgvLopQL.RowHeadersWidth = 51;
+            this.dgvLopQL.RowTemplate.Height = 24;
+            this.dgvLopQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvLopQL.Size = new System.Drawing.Size(748, 276);
+            this.dgvLopQL.TabIndex = 4;
             // 
             // btn_Refresh
             // 
@@ -115,6 +116,7 @@
             this.btn_Delete.TabIndex = 3;
             this.btn_Delete.Text = "Xóa";
             this.btn_Delete.UseVisualStyleBackColor = false;
+            this.btn_Delete.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btn_tien
             // 
@@ -144,6 +146,7 @@
             this.btn_Sua.TabIndex = 3;
             this.btn_Sua.Text = "Sửa";
             this.btn_Sua.UseVisualStyleBackColor = false;
+            this.btn_Sua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btn_Add
             // 
@@ -242,7 +245,6 @@
             this.label1.Size = new System.Drawing.Size(194, 31);
             this.label1.TabIndex = 1;
             this.label1.Text = "LỚP QUẢN LÝ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // frm_LopQL
             // 
@@ -256,7 +258,7 @@
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGV_LopQL)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLopQL)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -268,7 +270,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.DataGridView dGV_LopQL;
+        private System.Windows.Forms.DataGridView dgvLopQL;
         private System.Windows.Forms.Button btn_Refresh;
         private System.Windows.Forms.Button btn_Delete;
         private System.Windows.Forms.Button btn_tien;
