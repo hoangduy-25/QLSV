@@ -170,6 +170,7 @@
             this.btn_search.TabIndex = 3;
             this.btn_search.Text = "Tìm kiếm";
             this.btn_search.UseVisualStyleBackColor = false;
+            this.btn_search.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // textBox2
             // 
@@ -248,6 +249,7 @@
             // 
             // frm_LopQL
             // 
+            this.AcceptButton = this.btn_search;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);

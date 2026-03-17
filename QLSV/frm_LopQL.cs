@@ -113,7 +113,31 @@ namespace QLSV
             }
         }
 
-        
+        private void LoadLopTheoTu(string tuKhoa)
+        {
+            string tk = tuKhoa.Trim();
+            using (DataBaseDataContext db = new DataBaseDataContext())
+            {
+                var ds = db.tbl_LopQLs
+                       .Where(lop =>
+                           lop.id.Contains(tk) ||
+                           lop.tenLop.Contains(tk) ||
+                           lop.maLop.Contains(tk))
+                       .OrderBy(sv => sv.id)
+                       .ToList();
+                dgvLopQL.DataSource = ds;
+                FormatGid();
+            }
+
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txt_search.Text))
+                LoadLopQL();
+            else
+                LoadLopTheoTu(txt_search.Text);
+        }
     }
 
 }

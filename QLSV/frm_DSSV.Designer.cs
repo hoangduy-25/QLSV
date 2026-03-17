@@ -70,7 +70,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(800, 382);
             this.panel3.TabIndex = 2;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
             // 
             // dgvSinhVien
             // 
@@ -115,7 +114,6 @@
             this.btn_tien.TabIndex = 3;
             this.btn_tien.Text = ">";
             this.btn_tien.UseVisualStyleBackColor = true;
-            //this.btn_tien.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_lui
             // 
@@ -125,7 +123,6 @@
             this.btn_lui.TabIndex = 3;
             this.btn_lui.Text = "<";
             this.btn_lui.UseVisualStyleBackColor = true;
-            //this.btn_lui.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_Sua
             // 
@@ -161,7 +158,7 @@
             this.btn_search.TabIndex = 3;
             this.btn_search.Text = "Tìm kiếm";
             this.btn_search.UseVisualStyleBackColor = false;
-            this.btn_search.Click += new System.EventHandler(this.frm_SinhVien_Load);
+            this.btn_search.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // textBox2
             // 
@@ -237,10 +234,10 @@
             this.label1.Size = new System.Drawing.Size(277, 31);
             this.label1.TabIndex = 1;
             this.label1.Text = "QUẢN LÝ SINH VIÊN";
-            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // frm_DSSV
             // 
+            this.AcceptButton = this.btn_search;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);

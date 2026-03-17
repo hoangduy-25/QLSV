@@ -117,17 +117,32 @@ namespace QLSV
             loginForm.ShowDialog();
             this.Close();
         }
-        private void panel3_Paint_1(object sender, PaintEventArgs e)
-        {
 
-        }
-        private void panel3_Paint(object sender, PaintEventArgs e)
+        private void LoadSinhVienTheoTu(string tuKhoa)
         {
-
+            string tk = tuKhoa.Trim();
+            using (DataBaseDataContext db = new DataBaseDataContext())
+            {
+                var ds = db.tbl_sinhviens
+                       .Where(sv =>
+                           sv.id.Contains(tk) ||
+                           sv.Hoten.Contains(tk) ||
+                           sv.malop.Contains(tk))
+                       .OrderBy(sv => sv.id)
+                       .ToList();
+                dgvSinhVien.DataSource = ds;
+                FormatGrid();
+            }
+            
         }
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        
+        private void btnTimKiem_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(txt_search.Text))
+                LoadSinhVien();
+            else
+                LoadSinhVienTheoTu(txt_search.Text);
         }
+        
     }
 }
