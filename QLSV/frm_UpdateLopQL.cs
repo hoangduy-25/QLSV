@@ -12,44 +12,43 @@ namespace QLSV
 {
     public partial class frm_UpdateLopQL : Form
     {
-        private string _idLop= "";
+        private string _MaLop= "";
         public frm_UpdateLopQL()
         {
             InitializeComponent();
-            _idLop = "";
+            _MaLop = "";
         }
         public frm_UpdateLopQL(string idLop)
         {
             InitializeComponent();
-            _idLop = idLop;
+            _MaLop = idLop;
         }
         private void frm_UpdateLopQL_Load(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_idLop))
+            if (!string.IsNullOrEmpty(_MaLop))
             {
-                txt_IDLopQL.Text = _idLop;
-                txt_IDLopQL.Enabled = false;
+                txt_MaLop.Text = _MaLop;
+                txt_MaLop.Enabled = false;
                     using (DataBaseDataContext db = new DataBaseDataContext())
                     {
-                        var lop = db.tbl_LopQLs.FirstOrDefault(l => l.id == _idLop);
+                        var lop = db.tbl_Lops.FirstOrDefault(l => l.MaLop == _MaLop);
                         if (lop != null)
                         {
-                            txt_Class.Text = lop.maLop;
-                            txt_TenLop.Text = lop.tenLop;
-                            txt_soHS.Text = lop.SoHS.ToString();
-                            txt_GV.Text = lop.GiangVien;
+                            txt_MaLop.Text = lop.MaLop;
+                            txt_TenLop.Text = lop.TenLop;
+                            
                         }
                     }
             }
             else
             {
-                txt_IDLopQL.Clear();
-                txt_IDLopQL.Enabled = true;
+                txt_MaLop.Clear();
+                txt_MaLop.Enabled = true;
             }
         }
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txt_IDLopQL.Text) || string.IsNullOrEmpty(txt_Class.Text) || string.IsNullOrEmpty(txt_TenLop.Text) || string.IsNullOrEmpty(txt_soHS.Text) || string.IsNullOrEmpty(txt_GV.Text))
+            if (string.IsNullOrEmpty(txt_MaLop.Text) || string.IsNullOrEmpty(txt_TenLop.Text) )
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
                 return;
@@ -58,32 +57,30 @@ namespace QLSV
             {
                 using (DataBaseDataContext db = new DataBaseDataContext())
                 {
-                    if (string.IsNullOrEmpty(_idLop))
+                    if (string.IsNullOrEmpty(_MaLop))
                     {
-                        if (db.tbl_LopQLs.Any(l => l.id == txt_IDLopQL.Text.Trim()))
+                        if (db.tbl_Lops.Any(l => l.MaLop == txt_MaLop.Text.Trim()))
                         {
                             MessageBox.Show("ID lớp đã tồn tại!");
                             return;
                         }
-                        tbl_LopQL lopNew = new tbl_LopQL();
-                        lopNew.id = txt_IDLopQL.Text.Trim();
-                        lopNew.maLop = txt_Class.Text.Trim();
-                        lopNew.tenLop = txt_TenLop.Text.Trim();
-                        lopNew.SoHS = txt_soHS.Text.Trim();
-                        lopNew.GiangVien = txt_GV.Text.Trim();
-                        db.tbl_LopQLs.InsertOnSubmit(lopNew);
+                        tbl_Lop lopNew = new tbl_Lop();
+                        
+                        lopNew.MaLop = txt_MaLop.Text.Trim();
+                        lopNew.TenLop = txt_TenLop.Text.Trim();
+                        
+                        db.tbl_Lops.InsertOnSubmit(lopNew);
                         db.SubmitChanges();
                         MessageBox.Show("Thêm mới thành công");
                     }
                     else
                     {
-                        var lopUpdate = db.tbl_LopQLs.FirstOrDefault(l => l.id == _idLop);
+                        var lopUpdate = db.tbl_Lops.FirstOrDefault(l => l.MaLop == _MaLop);
                         if (lopUpdate != null)
                         {
-                            lopUpdate.maLop = txt_Class.Text.Trim();
-                            lopUpdate.tenLop = txt_TenLop.Text.Trim();
-                            lopUpdate.SoHS = txt_soHS.Text.Trim();
-                            lopUpdate.GiangVien = txt_GV.Text.Trim();
+                            lopUpdate.MaLop = txt_MaLop.Text.Trim();
+                            lopUpdate.TenLop = txt_TenLop.Text.Trim();
+                          
                             db.SubmitChanges();
                             MessageBox.Show("Cập nhật thành công");
                         }

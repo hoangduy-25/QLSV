@@ -31,7 +31,7 @@ namespace QLSV
             {
                 using(DataBaseDataContext db = new DataBaseDataContext())
                 {
-                    var ds = db.tbl_sinhviens.OrderBy(sv => sv.id).ToList();
+                    var ds = db.tbl_SinhViens.OrderBy(sv => sv.id).ToList();
                     dgvSinhVien.DataSource = ds;
                     FormatGrid();
                 }
@@ -46,10 +46,11 @@ namespace QLSV
         {
             if (dgvSinhVien.Rows.Count > 0)
             {
-                dgvSinhVien.Columns["Hoten"].HeaderText = "Họ tên";
-                dgvSinhVien.Columns["gioitinh"].HeaderText = "Giới tính";
-                dgvSinhVien.Columns["ngaysinh"].HeaderText = "Ngày sinh";
-                dgvSinhVien.Columns["malop"].HeaderText = "Mã lớp";
+                dgvSinhVien.Columns["MaSV"].HeaderText = "MSSV";
+                dgvSinhVien.Columns["HoTen"].HeaderText = "Họ tên";
+                dgvSinhVien.Columns["GioiTinh"].HeaderText = "Giới tính";
+                dgvSinhVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                dgvSinhVien.Columns["Malop"].HeaderText = "Mã lớp";
             }
             
         }
@@ -82,7 +83,7 @@ namespace QLSV
 
             if (dgvSinhVien.CurrentRow != null)
             {
-                string id = dgvSinhVien.CurrentRow.Cells["id"].Value.ToString();
+                int id = Convert.ToInt32(dgvSinhVien.CurrentRow.Cells["id"].Value);
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa sinh viên này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -90,10 +91,10 @@ namespace QLSV
                     {
                         using (DataBaseDataContext db = new DataBaseDataContext())
                         {
-                            var sv = db.tbl_sinhviens.FirstOrDefault(x => x.id == id);
+                            var sv = db.tbl_SinhViens.FirstOrDefault(x => x.id == id);
                             if (sv != null)
                             {
-                                db.tbl_sinhviens.DeleteOnSubmit(sv);
+                                db.tbl_SinhViens.DeleteOnSubmit(sv);
                                 db.SubmitChanges();
                                 LoadSinhVien();
                             }
@@ -123,11 +124,11 @@ namespace QLSV
             string tk = tuKhoa.Trim();
             using (DataBaseDataContext db = new DataBaseDataContext())
             {
-                var ds = db.tbl_sinhviens
+                var ds = db.tbl_SinhViens
                        .Where(sv =>
-                           sv.id.Contains(tk) ||
-                           sv.Hoten.Contains(tk) ||
-                           sv.malop.Contains(tk))
+                           sv.MaSV.Contains(tk) ||
+                           sv.HoTen.Contains(tk) ||
+                           sv.MaLop.Contains(tk))
                        .OrderBy(sv => sv.id)
                        .ToList();
                 dgvSinhVien.DataSource = ds;
@@ -136,12 +137,19 @@ namespace QLSV
             
         }
         
+        private void frm_Lop(object sender, EventArgs e)
+        {
+            this.Hide();
+            frm_LopQL frm = new frm_LopQL();
+            frm.ShowDialog();
+            this.Close();
+        }
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txt_search.Text))
+            if (string.IsNullOrWhiteSpace(btnSearch.Text))
                 LoadSinhVien();
             else
-                LoadSinhVienTheoTu(txt_search.Text);
+                LoadSinhVienTheoTu(btnSearch.Text);
         }
         
     }

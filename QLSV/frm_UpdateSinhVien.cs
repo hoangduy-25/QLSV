@@ -12,21 +12,35 @@ namespace QLSV
 {
     public partial class frm_UpdateSinhVien : Form
     {
-        private string _id = "";
+        private string _MSSV = "";
         public frm_UpdateSinhVien()
         {
             InitializeComponent();
-            _id = "";
+            _MSSV = "";
         }
 
         public frm_UpdateSinhVien(string mssv)
         {
             InitializeComponent();
-            _id = mssv;
+            _MSSV = mssv;
         }
+
+        private void loadComboBox()
+        {
+            using (DataBaseDataContext db = new DataBaseDataContext())
+            {
+                var listLop = db.tbl_Lops.Select(lop => new { lop.MaLop, lop.TenLop }).ToList();
+                cboMaLop.DataSource = listLop;
+                cboMaLop.DisplayMember = "TenLop";
+                cboMaLop.ValueMember = "MaLop";
+                cboMaLop.SelectedIndex = -1;
+            }
+        }
+
+       
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txt_MSSV.Text) || string.IsNullOrEmpty(txt_hoTen.Text) || string.IsNullOrEmpty(txt_Lop.Text) || string.IsNullOrEmpty(cB_gioiTinh.Text))
+            if (string.IsNullOrEmpty(txt_MSSV.Text) || string.IsNullOrEmpty(txt_hoTen.Text) || string.IsNullOrEmpty(cboMaLop.Text) || string.IsNullOrEmpty(cboGioiTinh.Text))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
                 return;
@@ -37,22 +51,22 @@ namespace QLSV
                 {
                     //Them moi
 
-                    if (string.IsNullOrEmpty(_id))
+                    if (string.IsNullOrEmpty(_MSSV))
                     {
-                        if (db.tbl_sinhviens.Any(s => s.id == txt_MSSV.Text.Trim()))
+                        if (db.tbl_SinhViens.Any(s => s.MaSV == label.Text.Trim()))
                         {
                             MessageBox.Show("MSSV đã tồn tại!");
                             return;
                         }
 
-                        tbl_sinhvien svNew = new tbl_sinhvien();
-                        svNew.id = txt_MSSV.Text.Trim();
-                        svNew.Hoten = txt_hoTen.Text.Trim();
-                        svNew.ngaysinh = dtP_NgaySinh.Value;
-                        svNew.malop = txt_Lop.Text.Trim();
-                        svNew.gioitinh = cB_gioiTinh.Text;
+                        tbl_SinhVien svNew = new tbl_SinhVien();
+                        svNew.MaSV = label.Text.Trim();
+                        svNew.HoTen = txt_hoTen.Text.Trim();
+                        svNew.NgaySinh = dtP_NgaySinh.Value;
+                        svNew.MaLop = cboMaLop.SelectedValue.ToString();
+                        svNew.GioiTinh = cboGioiTinh.Text;
 
-                        db.tbl_sinhviens.InsertOnSubmit(svNew);
+                        db.tbl_SinhViens.InsertOnSubmit(svNew);
                         db.SubmitChanges();
 
                         MessageBox.Show("Thêm mới thành công");
@@ -60,13 +74,13 @@ namespace QLSV
                     else
                     {
                         //Sua
-                        var sv = db.tbl_sinhviens.FirstOrDefault(s => s.id == _id);
+                        var sv = db.tbl_SinhViens.FirstOrDefault(s => s.MaSV == _MSSV);
                         if (sv != null)
                         {
-                            sv.Hoten = txt_hoTen.Text.Trim();
-                            sv.ngaysinh = dtP_NgaySinh.Value;
-                            sv.malop = txt_Lop.Text.Trim();
-                            sv.gioitinh = cB_gioiTinh.Text;
+                            sv.HoTen = txt_hoTen.Text.Trim();
+                            sv.NgaySinh = dtP_NgaySinh.Value;
+                            sv.MaLop = cboMaLop.SelectedValue.ToString();
+                            sv.GioiTinh = cboGioiTinh.Text;
                             db.SubmitChanges();
                             MessageBox.Show("Cập nhật thành công!");
                         }
@@ -87,20 +101,21 @@ namespace QLSV
         }
         private void UpdateSinhVien_Load(object sender, EventArgs e)
         {
-            cB_gioiTinh.SelectedIndex = 0;
-            if (!string.IsNullOrEmpty(_id))
+            loadComboBox();
+            cboGioiTinh.SelectedIndex = 0;
+            if (!string.IsNullOrEmpty(_MSSV))
             {
-                txt_MSSV.Text = _id;
+                txt_MSSV.Text = _MSSV;
                 txt_MSSV.Enabled = false;
                 using (DataBaseDataContext db = new DataBaseDataContext())
                 {
-                    var sv = db.tbl_sinhviens.FirstOrDefault(s => s.id == txt_MSSV.Text);
+                    var sv = db.tbl_SinhViens.FirstOrDefault(s => s.MaSV == txt_MSSV.Text);
                     if (sv != null)
                     {
-                        txt_hoTen.Text = sv.Hoten;
-                        dtP_NgaySinh.Value = sv.ngaysinh ?? DateTime.Now;
-                        txt_Lop.Text = sv.malop;
-                        cB_gioiTinh.Text = sv.gioitinh;
+                        txt_hoTen.Text = sv.HoTen;
+                        dtP_NgaySinh.Value = sv.NgaySinh ?? DateTime.Now;
+                        cboMaLop.Text = sv.MaLop;
+                        cboGioiTinh.Text = sv.GioiTinh;
                     }
                 }
             }

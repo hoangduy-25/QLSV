@@ -29,7 +29,7 @@ namespace QLSV
             {
                 using (DataBaseDataContext db = new DataBaseDataContext())
                 {
-                    var list = db.tbl_LopQLs.OrderBy(lop => lop.id).ToList();
+                    var list = db.tbl_Lops.OrderBy(lop => lop.MaLop).ToList();
                     dgvLopQL.DataSource = list;
                     FormatGid();
                 }
@@ -44,10 +44,9 @@ namespace QLSV
         {
             if (dgvLopQL.Rows.Count > 0)
             {
-                dgvLopQL.Columns["maLop"].HeaderText = "Mã Lớp";
-                dgvLopQL.Columns["tenLop"].HeaderText = "Tên lớp";
-                dgvLopQL.Columns["SoHS"].HeaderText = "Số HS";
-                dgvLopQL.Columns["GiangVien"].HeaderText = "Giảng viên";
+                dgvLopQL.Columns["MaLop"].HeaderText = "Mã Lớp";
+                dgvLopQL.Columns["TenLop"].HeaderText = "Tên lớp";
+                
             }
         }
         private void btn_ThemLop_Click(object sender, EventArgs e)
@@ -67,7 +66,7 @@ namespace QLSV
         {
             if (dgvLopQL.CurrentRow != null)
             {
-                string id = dgvLopQL.CurrentRow.Cells["id"].Value.ToString();
+                string id = dgvLopQL.CurrentRow.Cells["MaLop"].Value.ToString();
                 frm_UpdateLopQL update = new frm_UpdateLopQL(id);
                 update.ShowDialog();
                 LoadLopQL();
@@ -84,7 +83,7 @@ namespace QLSV
 
             if (dgvLopQL.CurrentRow != null)
             {
-                string id = dgvLopQL.CurrentRow.Cells["id"].Value.ToString();
+                string id = dgvLopQL.CurrentRow.Cells["MaLop"].Value.ToString();
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa lớp này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -92,10 +91,10 @@ namespace QLSV
                     {
                         using (DataBaseDataContext db = new DataBaseDataContext())
                         {
-                            var lop = db.tbl_LopQLs.FirstOrDefault(x => x.id == id);
+                            var lop = db.tbl_Lops.FirstOrDefault(x => x.MaLop == id);
                             if (lop != null)
                             {
-                                db.tbl_LopQLs.DeleteOnSubmit(lop);
+                                db.tbl_Lops.DeleteOnSubmit(lop);
                                 db.SubmitChanges();
                                 LoadLopQL();
                             }
@@ -118,19 +117,25 @@ namespace QLSV
             string tk = tuKhoa.Trim();
             using (DataBaseDataContext db = new DataBaseDataContext())
             {
-                var ds = db.tbl_LopQLs
+                var ds = db.tbl_Lops
                        .Where(lop =>
-                           lop.id.Contains(tk) ||
-                           lop.tenLop.Contains(tk) ||
-                           lop.maLop.Contains(tk))
-                       .OrderBy(sv => sv.id)
+                           
+                           lop.TenLop.Contains(tk) ||
+                           lop.MaLop.Contains(tk))
+                       .OrderBy(sv => sv.MaLop)
                        .ToList();
                 dgvLopQL.DataSource = ds;
                 FormatGid();
             }
 
         }
-
+        private void frm_DSSV(object sender, EventArgs e)
+        {
+            this.Hide();
+            frm_DSSV frm = new frm_DSSV();
+            frm.ShowDialog();
+            this.Close();
+        }
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txt_search.Text))

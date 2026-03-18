@@ -1,21 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLSV1" Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-8LUPS8Q\SQLEXPRESS;Initial Catalog=QLSV1;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="QLSV.Properties.Settings" SettingsPropertyName="QLSV1ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.tbl_sinhvien" Member="tbl_sinhviens">
-    <Type Name="tbl_sinhvien">
-      <Column Name="id" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Hoten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="gioitinh" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="ngaysinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="malop" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLSV" Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=M537\SQLEXPRESS;Initial Catalog=QLSV;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="QLSV.Properties.Settings" SettingsPropertyName="QLSVConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_Lop" Member="tbl_Lops">
+    <Type Name="tbl_Lop">
+      <Column Name="MaLop" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenLop" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_Lop_tbl_SinhVien" Member="tbl_SinhViens" ThisKey="MaLop" OtherKey="MaLop" Type="tbl_SinhVien" />
     </Type>
   </Table>
-  <Table Name="dbo.tbl_LopQL" Member="tbl_LopQLs">
-    <Type Name="tbl_LopQL">
-      <Column Name="id" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="maLop" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="tenLop" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="SoHS" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="GiangVien" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+  <Table Name="dbo.tbl_SinhVien" Member="tbl_SinhViens">
+    <Type Name="tbl_SinhVien">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaSV" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MaLop" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_Lop_tbl_SinhVien" Member="tbl_Lop" ThisKey="MaLop" OtherKey="MaLop" Type="tbl_Lop" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_TaiKhoan" Member="tbl_TaiKhoans">
+    <Type Name="tbl_TaiKhoan">
+      <Column Name="TenDangNhap" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

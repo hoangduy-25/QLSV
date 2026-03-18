@@ -17,10 +17,10 @@ namespace QLSV
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txt_username.Text;
-            string password = txt_passwd.Text;
+            string username = txt_username.Text.Trim();
+            string password = txt_passwd.Text.Trim();
             if (username == "1" && password == "1")
             {
                 this.Hide();
