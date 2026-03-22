@@ -53,14 +53,14 @@ namespace QLSV
 
                     if (string.IsNullOrEmpty(_MSSV))
                     {
-                        if (db.tbl_SinhViens.Any(s => s.MaSV == label.Text.Trim()))
+                        if (db.tbl_SinhViens.Any(s => s.MaSV == txt_MSSV.Text.Trim()))
                         {
                             MessageBox.Show("MSSV đã tồn tại!");
                             return;
                         }
 
                         tbl_SinhVien svNew = new tbl_SinhVien();
-                        svNew.MaSV = label.Text.Trim();
+                        svNew.MaSV = txt_MSSV.Text.Trim();
                         svNew.HoTen = txt_hoTen.Text.Trim();
                         svNew.NgaySinh = dtP_NgaySinh.Value;
                         svNew.MaLop = cboMaLop.SelectedValue.ToString();
@@ -114,7 +114,7 @@ namespace QLSV
                     {
                         txt_hoTen.Text = sv.HoTen;
                         dtP_NgaySinh.Value = sv.NgaySinh ?? DateTime.Now;
-                        cboMaLop.Text = sv.MaLop;
+                        cboMaLop.SelectedValue = sv.MaLop;
                         cboGioiTinh.Text = sv.GioiTinh;
                     }
                 }

@@ -48,41 +48,61 @@ namespace QLSV
         }
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txt_MaLop.Text) || string.IsNullOrEmpty(txt_TenLop.Text) )
+            string maLopInput = txt_MaLop.Text.Trim();
+            string tenLopInput = txt_TenLop.Text.Trim();
+
+            if (string.IsNullOrEmpty(maLopInput) || string.IsNullOrEmpty(tenLopInput))
             {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             try
             {
                 using (DataBaseDataContext db = new DataBaseDataContext())
                 {
+
                     if (string.IsNullOrEmpty(_MaLop))
                     {
-                        if (db.tbl_Lops.Any(l => l.MaLop == txt_MaLop.Text.Trim()))
+                        if (db.tbl_Lops.Any(l => l.MaLop == maLopInput))
                         {
-                            MessageBox.Show("ID lớp đã tồn tại!");
-                            return;
+                            MessageBox.Show("Mã lớp này đã tồn tại! Vui lòng nhập mã khác.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txt_MaLop.Focus();
+                            return; 
                         }
+
+                        if (db.tbl_Lops.Any(l => l.TenLop.ToLower() == tenLopInput.ToLower()))
+                        {
+                            MessageBox.Show("Tên lớp này đã tồn tại! Vui lòng nhập tên khác.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txt_TenLop.Focus();
+                            return; 
+                        }
+
                         tbl_Lop lopNew = new tbl_Lop();
-                        
-                        lopNew.MaLop = txt_MaLop.Text.Trim();
-                        lopNew.TenLop = txt_TenLop.Text.Trim();
-                        
+                        lopNew.MaLop = maLopInput;
+                        lopNew.TenLop = tenLopInput;
+
                         db.tbl_Lops.InsertOnSubmit(lopNew);
                         db.SubmitChanges();
-                        MessageBox.Show("Thêm mới thành công");
+                        MessageBox.Show("Thêm mới thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
                     else
                     {
+                        if (db.tbl_Lops.Any(l => l.TenLop.ToLower() == tenLopInput.ToLower() && l.MaLop != _MaLop))
+                        {
+                            MessageBox.Show("Tên lớp này đang được sử dụng bởi một mã lớp khác! Vui lòng nhập tên khác.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txt_TenLop.Focus();
+                            return; 
+                        }
+
                         var lopUpdate = db.tbl_Lops.FirstOrDefault(l => l.MaLop == _MaLop);
                         if (lopUpdate != null)
                         {
-                            lopUpdate.MaLop = txt_MaLop.Text.Trim();
-                            lopUpdate.TenLop = txt_TenLop.Text.Trim();
-                          
+                            lopUpdate.TenLop = tenLopInput;
+
                             db.SubmitChanges();
-                            MessageBox.Show("Cập nhật thành công");
+                            MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -90,7 +110,7 @@ namespace QLSV
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnHuy_Click(object sender, EventArgs e)

@@ -52,23 +52,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="frm_DSSV_TheoLop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DSSV_TheoLop.Designer.cs">
+      <DependentUpon>frm_DSSV_TheoLop.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_Login.Designer.cs">
       <DependentUpon>frm_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_DSSV.cs">
+    <Compile Include="frm_QLSV.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_DSSV.Designer.cs">
-      <DependentUpon>frm_DSSV.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frm_LopQL.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_LopQL.Designer.cs">
-      <DependentUpon>frm_LopQL.cs</DependentUpon>
+    <Compile Include="frm_QLSV.Designer.cs">
+      <DependentUpon>frm_QLSV.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_UpdateLopQL.cs">
       <SubType>Form</SubType>
@@ -84,14 +84,26 @@
     <Compile Include="frm_UpdateSinhVien.Designer.cs">
       <DependentUpon>frm_UpdateSinhVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="ucLop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucLop.Designer.cs">
+      <DependentUpon>ucLop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucSinhVien.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSinhVien.Designer.cs">
+      <DependentUpon>ucSinhVien.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frm_DSSV_TheoLop.resx">
+      <DependentUpon>frm_DSSV_TheoLop.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_Login.resx">
       <DependentUpon>frm_Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_DSSV.resx">
-      <DependentUpon>frm_DSSV.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_LopQL.resx">
-      <DependentUpon>frm_LopQL.cs</DependentUpon>
+    <EmbeddedResource Include="frm_QLSV.resx">
+      <DependentUpon>frm_QLSV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_UpdateLopQL.resx">
       <DependentUpon>frm_UpdateLopQL.cs</DependentUpon>
@@ -107,6 +119,12 @@
     </Compile>
     <EmbeddedResource Include="frm_UpdateSinhVien.resx">
       <DependentUpon>frm_UpdateSinhVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucLop.resx">
+      <DependentUpon>ucLop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSinhVien.resx">
+      <DependentUpon>ucSinhVien.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataBase.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
